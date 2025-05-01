@@ -1,9 +1,25 @@
 set number relativenumber
-set colorcolumn=80
+set colorcolumn=90
 
 set tabstop=4 shiftwidth=4 smarttab expandtab shiftround
 
 set incsearch
+
+"Set , to move to the colorcolumn in normal mode
+nnoremap <silent> , :execute 'normal! ' . split(&colorcolumn, ',')[0] . "\<Bar>"<CR>
+"Set ,b to do the above and then go on a new line with indentation
+function! SplitAtLastWordAndMove()
+    let col = empty(&colorcolumn) ? 80 : split(&colorcolumn, ',')[0]
+    if col < strlen(getline('.'))
+        " Step 1: Move to colorcolumn, then to start of last space
+        execute 'normal! ' . col . "\<Bar>F "
+        " Step 2: Simulate pressing i<CR> to split the line and enter insert mode, then align
+        call feedkeys("i\<CR>\<ESC>kyypj^d$k^hpld$jddk", 'n')
+    else
+        echo "Line shorter than colorcolumn (" . col . ") — nothing done."
+    endif
+endfunction
+nnoremap <silent> ,b :call SplitAtLastWordAndMove()<CR>
 
 "TeX remaps
 autocmd BufNewFile *.tex 0r ~/.vim/templates/skeleton.tex
