@@ -1,2 +1,2 @@
-Linux config files, like ./.bashrc / ./.vimrc.
+Linux config files, like `.bashrc` and `.vimrc`.
 
