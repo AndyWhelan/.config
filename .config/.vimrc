@@ -2,10 +2,12 @@
 :if filereadable( "/etc/vimrc" )
    source /etc/vimrc
 :endif
-"  }}}
+"   }}}   
 "  Arista-specific settings {{{
 :if filereadable( $VIM . "/vimfiles/arista.vim" )
    source $VIM/vimfiles/arista.vim
+:elseif filereadable( $HOME . "/.vim/vimfiles/arista.vim" )
+   source $HOME/.vim/vimfiles/arista.vim
 :endif
 "  }}}
 " Global personalized settings {{{
@@ -35,6 +37,23 @@ function! s:setup_default_fallback_settings() abort
 endfunction
 " }}}
 " Other {{{
+" Remap <Space> to <C-w>
+nnoremap <Space> <C-w>
+" Remap 'o' to modify behavior based on whether we're inside a fold
+nnoremap o :<C-U>call FoldCheck()<CR>i
+function! FoldCheck()
+    let l:inside_fold = foldclosed(line('.')) != -1
+    normal! o
+    if l:inside_fold            " There'll be parenthesis. Delete.
+        normal! cc
+    endif
+endfunction
+syntax on
+filetype plugin indent on
+augroup common_shellfile_syntax
+   autocmd!
+   autocmd BufRead,BufNewFile ~/.common_rc set filetype=sh
+augroup END
 let mapleader="," | let maplocalleader="\\"
 set number colorcolumn=85
 colorscheme default
