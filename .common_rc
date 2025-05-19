@@ -1,0 +1,54 @@
+# Common non-login-shell setup. NO 'heavyweight' stuff here, i.e.
+# 1. No environment variables,
+# 2. No resource-intensive commands,
+# 3. No time-intensive scripts, and 
+# 4. No background services/processes
+
+shellname=$(ps -p $$ -o comm=)
+shellname="${shellname#-}"      # get rid of any login-shell encoding
+shellrc="$HOME/.$shellname"rc
+alias e='vim -o'
+alias esrc="e $shellrc"
+alias evrc='e ~/.vimrc'
+alias gb='cat ~/.gb'
+alias hgrep='history | grep -i'
+alias lsgi='ls | grep -i'
+alias lsl='ls -l'
+alias ssrc="source $shellrc"
+
+alias jan='cal -n 01'
+alias feb='cal -n 02'
+alias mar='cal -n 03'
+alias apr='cal -n 04'
+alias may='cal -n 05'
+alias jun='cal -n 06'
+alias jul='cal -n 07'
+alias aug='cal -n 08'
+alias sep='cal -n 09'
+alias oct='cal -n 10'
+alias nov='cal -n 11'
+alias dec='cal -n 12'
+
+set -o vi
+
+DISABLE_AUTO_TITLE=true
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi
+
+# To make manpages easier to read with colour-coding
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
+
+# as per AID/4403
+alias nix-enter='~/bin/nix-enter'
+export NIX_IGNORE_SYMLINK_STORE=1
