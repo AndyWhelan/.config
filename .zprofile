@@ -1,1 +1,1 @@
-/Users/andrewwhelan/.config/.zprofile
+./.config/.zprofile

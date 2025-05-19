@@ -1,1 +1,1 @@
-/Users/andrewwhelan/.config/.bash_profile
+./.config/.bash_profile

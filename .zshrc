@@ -1,1 +1,1 @@
-/Users/andrewwhelan/.config/.zshrc
+./.config/.zshrc

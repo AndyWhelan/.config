@@ -1,1 +1,1 @@
-/Users/andrewwhelan/.config/.bashrc
+./.config/.bashrc
