@@ -1,5 +1,5 @@
-.common_profile linguist-language=Shell
-.common_rc linguist-language=Shell
-.input_rc linguist-language=Shell
-.screen_rc linguist-language=Shell
-.tmux.conf linguist-language=Tmux
+./.config/.common_profile linguist-language=Shell
+./.config/.common_rc linguist-language=Shell
+./.config/.input_rc linguist-language=Shell
+./.config/.screen_rc linguist-language=Shell
+./.config/.tmux.conf linguist-language=Tmux
