@@ -13,9 +13,9 @@ if [[ "$OSTYPE" != "darwin"* ]]; then  # not on Mac, so ok to source
 fi
 # Source bash login-shell configs
 if [ -f ~/.bash_profile ]; then
-        . ~/.bash_profile
+        . $HOME/.bash_profile
 fi
 # Source common non-login-shell configs
 if [ -f ~/.common_rc ]; then
-        . ~/.common_rc
+        . $HOME/.common_rc
 fi

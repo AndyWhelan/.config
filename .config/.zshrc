@@ -10,8 +10,8 @@ if [ -f /etc/zshrc ]; then
 	. /etc/zshrc
 fi
 # Source zsh login-shell configs
-if [ -f $HOME/.zsh_profile ]; then
-	. $HOME/.zsh_profile
+if [ -f $HOME/.zprofile ]; then
+	. $HOME/.zprofile
 fi
 # Source common non-login-shell configs
 if [ -f $HOME/.common_rc ]; then

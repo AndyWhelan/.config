@@ -5,15 +5,22 @@
 # 4. No background services/processes
 
 shellname=$(ps -p $$ -o comm=)
+shellname=$(basename "$shellname")
 shellname="${shellname#-}"      # get rid of any login-shell encoding
 shellrc="$HOME/.$shellname"rc
 alias e='vim -o'
+alias ebrc="e ~/.bashrc"
+alias ebp="e ~/.bash_profile"
+alias ecp="e ~/.common_profile"
+alias ecrc="e ~/.common_rc"
 alias esrc="e $shellrc"
-alias evrc='e ~/.vimrc'
-alias gb='cat ~/.gb'
+alias evrc="e ~/.vimrc"
+alias ezrc="e ~/.zshrc"
+alias gb="cat ~/.gb"
 alias hgrep='history | grep -i'
 alias lsgi='ls | grep -i'
 alias lsl='ls -l'
+alias matlab='open /Applications/MATLAB_R2024b.app'
 alias ssrc="source $shellrc"
 
 alias jan='cal -n 01'
@@ -48,7 +55,3 @@ export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
-
-# as per AID/4403
-alias nix-enter='~/bin/nix-enter'
-export NIX_IGNORE_SYMLINK_STORE=1

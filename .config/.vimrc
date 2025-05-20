@@ -36,6 +36,17 @@ function! s:setup_default_fallback_settings() abort
    execute 'inoremap <buffer> <localleader>mf ' . l:map
 endfunction
 " }}}
+" Plugins {{{
+" Initialize vim-plug
+call plug#begin('~/.vim/plugged')
+
+" Add your plugins here, for example:
+" Plug 'tpope/vim-fugitive'
+" Plug 'wannesm/wmgraphviz.vim'
+"
+"" End of plugin section
+call plug#end()
+"  }}}
 " Other {{{
 " Remap <Space> to <C-w>
 nnoremap <Space> <C-w>
@@ -49,6 +60,7 @@ function! FoldCheck()
     endif
 endfunction
 syntax on
+set background=dark
 filetype plugin indent on
 augroup common_shellfile_syntax
    autocmd!
@@ -56,7 +68,7 @@ augroup common_shellfile_syntax
 augroup END
 let mapleader="," | let maplocalleader="\\"
 set number colorcolumn=85
-colorscheme default
+colorscheme elflord
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " Copy selected lines or complete file to Arista pb (http://pb/)
@@ -68,13 +80,17 @@ inoremap jk <Esc>
 vnoremap jk <Esc>
 "  }}}
 "  }}}
-" .py settings {{{
-let g:python_recommended_style = 0 " Override default settings for .py files
-augroup py_settings
+" .dot settings {{{
+augroup dot_settings
    autocmd!
-   autocmd FileType python nnoremap <buffer> <localleader>c $i# 
-   autocmd FileType python inoremap <buffer> <localleader>c # 
-augroup END "  }}}
+   autocmd BufRead,BufNewFile *.dot call s:setup_dot()
+augroup END
+function! s:setup_dot() abort
+   " Folds
+   let b:comment="//"
+   setlocal foldenable foldmethod=marker
+   set filetype=dot
+endfunction "  }}}
 " .md settings {{{
 augroup markdown_settings
    autocmd!
@@ -110,7 +126,14 @@ function! s:setup_markdown() abort
    "inoremap <buffer> <localleader>og <Esc>ciw[`<Esc>pa`](https://opengrok.infra.corp.arista.io/source/xref/eos-trunk/src/<Esc>pa)
    inoremap <buffer> <localleader>og <Esc>v?[a-zA-Z\./]\+<CR>c[`<Esc>pa`](https://opengrok.infra.corp.arista.io/source/xref/eos-trunk/src/<Esc>pa)<Esc>:nohlsearch<CR>a
 endfunction "  }}}
-" ~/.vimrc settings {{{
+" .py settings {{{
+let g:python_recommended_style = 0 " Override default settings for .py files
+augroup py_settings
+   autocmd!
+   autocmd FileType python nnoremap <buffer> <localleader>c $i# 
+   autocmd FileType python inoremap <buffer> <localleader>c # 
+augroup END "  }}}
+" .vimrc settings {{{
 augroup vimrc_settings
    autocmd!
    autocmd BufRead,BufNewFile $MYVIMRC call s:setup_vimrc()

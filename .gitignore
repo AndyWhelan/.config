@@ -1,5 +1,6 @@
 # Ignore everything by default
 *
+!.config
 # ...except these files:
 !.bash_profile
 !.bashrc
@@ -16,7 +17,6 @@
 !symlinker.bash
 !README.md
 # ...and these directories:
-!.config/
 # ...but in the above also want to ignore these subfolders
 .config/iterm2/
 .config/wireshark/
