@@ -20,7 +20,7 @@ alias gb="cat ~/.gb"
 alias hgrep='history | grep -i'
 alias lsgi='ls | grep -i'
 alias lsl='ls -l'
-alias matlab='open /Applications/MATLAB_R2024b.app'
+alias matlab="/Applications/MATLAB_R2024b.app/bin/matlab -r \"userpath('\"$(pwd)\"');\""
 alias ssrc="source $shellrc"
 
 alias jan='cal -n 01'
