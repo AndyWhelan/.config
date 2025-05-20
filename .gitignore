@@ -15,9 +15,6 @@
 !README.md
 # ...and these directories:
 !.config/
-!config/
 # ...but in the above also want to ignore these subfolders
 .config/iterm2/
 .config/wireshark/
-# ...so have to unignore everything else
-!.config/**/*
