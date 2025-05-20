@@ -5,6 +5,7 @@
 !.bashrc
 !.common_profile
 !.common_rc
+!.gitattributes
 !.gitignore
 !.inputrc
 !.screenrc
@@ -12,6 +13,7 @@
 !.vimrc
 !.zprofile
 !.zshrc
+!symlinker.bash
 !README.md
 # ...and these directories:
 !.config/
