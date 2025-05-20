@@ -5,8 +5,8 @@
 # 4. No background services/processes
 
 shellname=$(ps -p $$ -o comm=)
-shellname=$(basename "$shellname")
 shellname="${shellname#-}"      # get rid of any login-shell encoding
+shellname=$(basename "$shellname")
 shellrc="$HOME/.$shellname"rc
 alias e='vim -o'
 alias ebrc="e ~/.bashrc"
