@@ -1,7 +1,7 @@
-# Ignore everything by default
+# Ignore everything by default {{{
 *
-!.config
-# ...except these files:
+#}}}
+# .. except these files: {{{
 !.bash_profile
 !.bashrc
 !.common_profile
@@ -16,7 +16,11 @@
 !.zshrc
 !symlinker.bash
 !README.md
-# ...and these directories:
-# ...but in the above also want to ignore these subfolders
+!.config/
+!.config/**
+!.config/**/
+#}}}
+# ... but in the above directories also want to ignore these subfolders: {{{
 .config/iterm2/
 .config/wireshark/
+#}}}

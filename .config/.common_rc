@@ -8,14 +8,14 @@ shellname=$(ps -p $$ -o comm=)
 shellname="${shellname#-}"      # get rid of any login-shell encoding
 shellname=$(basename "$shellname")
 shellrc="$HOME/.$shellname"rc
-alias e='nvim -o'
+alias e='nvim -O'
 alias ebrc="e ~/.bashrc"
 alias ebp="e ~/.bash_profile"
 alias ecp="e ~/.common_profile"
 alias ecrc="e ~/.common_rc"
 alias ecvrc="e $HOME/.common.vim"
 alias esrc="e $shellrc"
-alias evrc="e $HOME/.common.vim $HOME/.config/nvim/init.vim"
+alias evrc="e $HOME/.config/nvim/init.lua $HOME/.common.vim"
 alias ezp="e ~/.zprofile"
 alias ezrc="e ~/.zshrc"
 alias gb="cat ~/.gb"
