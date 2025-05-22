@@ -8,7 +8,7 @@
 	# Timezone
 export TZ=Europe/Dublin
 	# Default editor settings
-export EDITOR=vim
+export EDITOR=nvim
 export VISUAL=$EDITOR
 	# Add personal binary directories to the PATH
 export PATH="$PATH:$HOME/.local/bin:$HOME/bin"
