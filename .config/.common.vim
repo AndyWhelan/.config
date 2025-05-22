@@ -1,3 +1,40 @@
+" Logging {{{
+command! LogStart redir! > $HOME/vimlog.txt
+command! LogContinue redir! >> $HOME/vimlog.txt
+command! LogStop redir END
+function! IsFileInBuffers(filename) abort
+   " Iterate over all buffers
+   for buf in range(1, bufnr('$'))
+      if bufloaded(buf)
+         " Get full path of buffer's file
+         let bufname = bufname(buf)
+         " Compare with target filename (full path recommended)
+         if fnamemodify(bufname, ':p') ==# fnamemodify(a:filename, ':p')
+            return 1  " Found the file in a buffer
+         endif
+      endif
+   endfor
+   return 0  " File not found in any loaded buffer
+endfunction
+function! s:MaybeStartLog()
+   "if expand('%:p') !=# expand('$HOME/vimlog.txt')
+   if !IsFileInBuffers('$HOME/vimlog.txt')
+      LogStart
+   endif
+endfunction
+function! s:MaybeContinue()
+   if expand('%:p') ==# expand('$HOME/vimlog.txt')
+      LogContinue
+   endif
+endfunction
+augroup log_settings
+   autocmd!
+   autocmd VimEnter * call s:MaybeStartLog()
+   autocmd BufReadPre,BufNewFile $HOME/vimlog.txt LogStop
+   autocmd WinClosed * call s:MaybeContinue()
+   autocmd VimLeave * LogStop
+augroup END
+"  }}}
 "  System settings {{{
 :if filereadable( "/etc/vimrc" )
    source /etc/vimrc
@@ -34,7 +71,8 @@ call plug#end()
 " Default fallback for all buffers {{{
 augroup default_fallback_settings
    autocmd!
-   autocmd BufReadPre,BufNewFile * call s:setup_default_fallback_settings()
+   autocmd BufReadPre,BufNewFile,VimEnter * call s:setup_default_fallback_settings()
+   "autocmd BufReadPre,BufNewFile * call s:setup_default_fallback_settings()
 augroup END
 function! s:insert_fold_marker()
    if stridx(&l:formatoptions, 'o') == -1 | let b:line_continue_edit = b:comment | else | let b:line_continue_edit='' | endif 
@@ -54,6 +92,7 @@ function! s:setup_default_fallback_settings() abort
    let l:map .= "\<Esc>za0f{hi"
    " Define the buffer-local insert-mode mapping
    execute 'inoremap <buffer> <localleader>mf ' . l:map
+   setlocal foldenable foldmethod=marker
 endfunction
 " }}}
 " Other {{{
@@ -100,7 +139,6 @@ augroup END
 function! s:setup_dot() abort
    " Folds
    let b:comment="//"
-   setlocal foldenable foldmethod=marker
    set filetype=dot
 endfunction "  }}}
 " .md settings {{{
@@ -111,7 +149,6 @@ augroup END
 function! s:setup_markdown() abort
    " Folds
    let b:comment="<!--  -->"
-   setlocal foldenable foldmethod=marker
    inoremap <buffer> <localleader>mf <!-- {{{  --><CR><!-- }}} --><Esc>k$F{la
    " Insert image (figure)
    inoremap <buffer> <localleader>f ![]()<Esc>F[a
@@ -210,7 +247,6 @@ augroup tex_remaps
     autocmd FileType tex inoremap <buffer> \be \begin
     autocmd FileType tex nnoremap ,b :call SplitAtLastWordAndMove()<CR>
     autocmd FileType tex let b:comment="\%"
-    autocmd FileType tex setlocal foldenable foldmethod=marker
 augroup END
 "}}}
 " .vimrc settings {{{
@@ -220,6 +256,6 @@ augroup vimrc_settings
 augroup END
 function! s:setup_vimrc() abort
    " Folds
-   setlocal foldenable foldmethod=marker
    let b:comment = '"'
+   inoremap <buffer> <localleader>tr echomsg ""<Esc>i
 endfunction " }}}

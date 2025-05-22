@@ -99,7 +99,7 @@ vim.cmd('source ~/.common.vim')
          --  }}}
 -- .lua settings {{{
 vim.api.nvim_create_augroup('lua_settings', { clear = true })
-vim.api.nvim_create_autocmd({ 'VimEnter' }, {
+vim.api.nvim_create_autocmd({ 'VimEnter','BufReadPre', 'BufNewFile' }, {
    group = 'lua_settings',
    pattern = { '*.lua' },
    callback = function()
@@ -107,6 +107,12 @@ vim.api.nvim_create_autocmd({ 'VimEnter' }, {
       vim.opt_local.foldmethod = 'marker'
       vim.b.comment = '--'
       vim.cmd('LspStart') -- a hack because I can't figure out what's going wrong with lua_ls
+      vim.keymap.set( 'i', '<localleader>tr', "vim.notify(\"\", vim.log.levels.DEBUG)<Esc>F\"i", {buffer=true})
+      vim.keymap.set( 'n', '<localleader>lg', ':vsplit ~/.local/state/nvim/lsp.log<CR>', {buffer=true})
    end,
 })
+vim.api.nvim_create_user_command("ClearLspLog", function()
+   vim.fn.writefile({}, vim.lsp.log.get_filename())
+   print("LSP log cleared.")
+end, {})
    --  }}}
