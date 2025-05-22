@@ -8,19 +8,23 @@ shellname=$(ps -p $$ -o comm=)
 shellname="${shellname#-}"      # get rid of any login-shell encoding
 shellname=$(basename "$shellname")
 shellrc="$HOME/.$shellname"rc
-alias e='vim -o'
+alias e='nvim -o'
 alias ebrc="e ~/.bashrc"
 alias ebp="e ~/.bash_profile"
 alias ecp="e ~/.common_profile"
 alias ecrc="e ~/.common_rc"
+alias ecvrc="e $HOME/.common.vim"
 alias esrc="e $shellrc"
-alias evrc="e ~/.vimrc"
+alias evrc="e $HOME/.common.vim $HOME/.config/nvim/init.vim"
+alias ezp="e ~/.zprofile"
 alias ezrc="e ~/.zshrc"
 alias gb="cat ~/.gb"
 alias hgrep='history | grep -i'
 alias lsgi='ls | grep -i'
 alias lsl='ls -l'
 alias matlab="/Applications/MATLAB_R2024b.app/bin/matlab -r \"userpath('\"$(pwd)\"');\""
+alias pip=pip3
+alias python=python3
 alias ssrc="source $shellrc"
 
 alias jan='cal -n 01'

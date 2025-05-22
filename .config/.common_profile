@@ -14,8 +14,9 @@ export VISUAL=$EDITOR
 export PATH="$PATH:$HOME/.local/bin:$HOME/bin"
 	# MacPorts Installer addition on 2022-05-30_at_19:54:00: adding an appropriate PATH variable for use with MacPorts.
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-	# Set CDPATH (Directory search path)
+	# Set CDPATH (Directory search path)#
 export CDPATH=".:/src"
+export PATH="/opt/homebrew/bin:$PATH"
 
 # Source Cargo environment for Rust tools if it exists
 if [ -f "$HOME/.cargo/env" ]; then

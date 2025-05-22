@@ -1,5 +1,2 @@
-syntax on
-filetype plugin indent on
-set number
-set smartindent
-set relativenumber
+execute 'source' expand('~/.common.vim')
+lua require('myconfig.lualine')
