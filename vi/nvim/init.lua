@@ -1,6 +1,5 @@
 vim.cmd('source ~/.common.vim')
 -- Import/Load External Modules {{{
--- Status Bar Prettification {{{
    lualine = require( 'lualine' )
    lualine.setup {
       options = {
@@ -17,7 +16,6 @@ vim.cmd('source ~/.common.vim')
          lualine_z = { 'location' }
       }
    }
-   --  }}}
    -- LSP (Language Server Protocol) Support {{{
       local lspconfig = require('lspconfig')  -- individual language support
       local util = require('lspconfig.util')
@@ -58,7 +56,7 @@ vim.cmd('source ~/.common.vim')
       }
       local lspkind = require('lspkind')      -- prettify the autocompletion
       -- }}}
-      -- Neovim autocompletion {{{
+      -- nvim-cmp:                                    NeoVIM-autoCoMPletion {{{
          local cmp = require( 'cmp' )
          cmp.setup({
             mapping = {
@@ -96,6 +94,14 @@ vim.cmd('source ~/.common.vim')
             },
          })
          --  }}}
+-- nvim-tresitter.configs:                      Improved Syntax Highlighting (default is buggy) {{{
+local treesitter = require( 'nvim-treesitter.configs' )
+treesitter.setup {
+   ensure_installed = { "lua" },
+   highlight = { enable = true },
+}
+--  }}}
+
          --  }}}
 -- .lua settings {{{
 vim.api.nvim_create_augroup('lua_settings', { clear = true })
@@ -116,3 +122,35 @@ vim.api.nvim_create_user_command("ClearLspLog", function()
    print("LSP log cleared.")
 end, {})
    --  }}}
+-- Custom functions {{{
+local function leftmost_comment_column()
+   local leftmost = nil
+   local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+   for _, line in ipairs(lines) do
+      local s, _ = line:find("#")
+      if s then
+         if leftmost == nil or s < leftmost then
+            leftmost = s
+         end
+      end
+   end
+
+   if leftmost then
+      print("Leftmost comment column: " .. leftmost)
+      return leftmost
+   else
+      print("No comments found.")
+      return nil
+   end
+end
+--  }}}
+--vim.api.nvim_create_autocmd({"BufReadPost", "BufNewFile", "VimEnter", "InsertLeave"}, {
+--  pattern = "*.lua",
+--  callback = function()
+--    vim.cmd("syntax sync fromstart")  -- for built-in syntax
+--    vim.cmd("syntax enable")
+--    vim.cmd("redraw!")                 -- force redraw
+--  end,
+--})
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = "Show diagnostics" })

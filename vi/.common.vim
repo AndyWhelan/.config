@@ -64,6 +64,7 @@ if has( 'nvim' )
    Plug 'hrsh7th/cmp-path'
    Plug 'onsails/ls'
    Plug 'onsails/lspkind.nvim'
+   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 endif
 call plug#end()
 "  }}}

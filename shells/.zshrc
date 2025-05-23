@@ -35,4 +35,8 @@ precmd() { vcs_info }
 
 setopt prompt_subst
 PROMPT='%F{green}%n@%m%f %F{blue}%~%f %F{yellow}${vcs_info_msg_0_}%f %# '
-echo "Zsh-vi-mode is enabled. Current mode: $ZVM_LINE_INIT_MODE"
+#echo "Zsh-vi-mode is enabled. Current mode: $ZVM_LINE_INIT_MODE"
+
+# Environment variables autocomplete
+autoload -Uz compinit
+compinit

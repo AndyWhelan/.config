@@ -5,8 +5,8 @@
 # 4. Background services/processes
 
 # Set environment variables
-	# Timezone
-export TZ=Europe/Dublin
+	# Set CDPATH (Directory search path)#
+export CDPATH=".:/src"
 	# Default editor settings
 export EDITOR=nvim
 export VISUAL=$EDITOR
@@ -14,9 +14,9 @@ export VISUAL=$EDITOR
 export PATH="$PATH:$HOME/.local/bin:$HOME/bin"
 	# MacPorts Installer addition on 2022-05-30_at_19:54:00: adding an appropriate PATH variable for use with MacPorts.
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-	# Set CDPATH (Directory search path)#
-export CDPATH=".:/src"
 export PATH="/opt/homebrew/bin:$PATH"
+	# Timezone
+export TZ=Europe/Dublin
 
 # Source Cargo environment for Rust tools if it exists
 if [ -f "$HOME/.cargo/env" ]; then
