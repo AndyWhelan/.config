@@ -1,0 +1,91 @@
+# -ZSH:        Expected: {{{
+zr -> zp
+   zp -> cp
+      cp -> cr
+         cr -> "D"
+         cr -> export HISTREC_STARTED=1
+   zp -> export ZSH_PROFILE_SOURCED=1
+   zp -> zr
+      zr -> zp
+         zp -> cp
+            cp -> cr
+               cr -> "D"
+      zr -> cr
+         cr -> "D"
+zr -> cr
+   cr -> "D"
+#}}}
+# -ZSH:        Debug: {{{
+zp
+cp
+cr
+Debug... remove later
+Start recording shell history to /Users/andrewwhelan/.config/shells/shell_zsh.20250523_232523.log? (y/n) n
+History recording not started.
+zr
+zp
+cp
+cr
+Debug... remove later
+cr
+Debug... remove later
+#}}}
+# -ZSH:        Actual: {{{
+zp -> cp
+   cp -> cr
+      cr -> "D"
+      cr -> export HISTREC_STARTED=1
+zp -> export ZSH_PROFILE_SOURCED=1
+zp -> zr
+   zr -> zp
+      zp -> cp
+         cp -> cr
+            cr -> "D"
+   zr -> cr
+      cr -> "D"
+# }}}
+
+#  ZSH:        Expected: {{{
+zr -> zp
+   zp -> cp
+      cp -> cr
+         cr -> "D"
+         <cr doesn't run/ask history recording because HISTREC_STARTED=1 was inherited>
+   <zp doesn't source zr because ZSH_PROFILE_SOURCE=1 was inherited>
+zr -> cr
+   cr -> "D"
+#}}}
+#  ZSH:        Debug (confirmed expected): {{{
+zr
+zp
+cp
+cr
+Debug... remove later
+cr
+Debug... remove later
+#}}}
+
+# -ZSH: {{{
+zp -> cp
+   cp -> cr
+      cr -> "D"
+      cr -> export HISTREC_STARTED=1
+zp -> export ZSH_PROFILE_SOURCED=1
+zp -> zr
+   zr -> zp
+      zp -> cp
+         cp -> cr
+            cr -> "D"
+   zr -> cr
+      cr -> "D"
+# }}}
+#  ZSH: {{{
+zr -> zp
+   zp -> cp
+      cp -> cr
+         cr -> "D"
+         <cr doesn't run/ask history recording because HISTREC_STARTED=1 was inherited>
+   <zp doesn't source zr because ZSH_PROFILE_SOURCE=1 was inherited>
+zr -> cr
+   cr -> "D"
+#}}}

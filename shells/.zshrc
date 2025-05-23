@@ -1,3 +1,4 @@
+echo "zr" #DEBUG, remove later
 # zsh non-login-shell setup. NO 'heavyweight', or common stuff here, i.e.
 # 1. No environment variables,
 # 2. No resource-intensive commands,

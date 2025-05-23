@@ -1,3 +1,4 @@
+echo "zp" #DEBUG, remove later
 # Source common login-shell configs
 if [ -f $HOME/.common_profile ]; then
 	. $HOME/.common_profile

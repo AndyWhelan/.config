@@ -1,3 +1,4 @@
+echo "cp" #DEBUG, remove later
 # Common login-shell setup. Want 'heavyweight' stuff here, i.e.
 # 1. Environment variables,
 # 2. Resource-intensive commands,
