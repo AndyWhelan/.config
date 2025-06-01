@@ -154,3 +154,28 @@ end
 --  end,
 --})
 vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = "Show diagnostics" })
+-- latex_compile_on_save {{{
+vim.api.nvim_create_augroup('latex_compile', { clear = true })
+
+vim.api.nvim_create_autocmd('BufWritePost', {
+   pattern = '*.tex',
+   command = '!lualatex % && bibtex %:r && lualatex % && lualatex % && chrome_pdf %:r.pdf',
+})
+--  }}}
+local shell_patterns = {
+  "*.common_*",
+  "*.env*",
+  "*.shell_*",
+  "*.path*",
+  "*config/sh/profile",
+  "*config/sh/path",
+  "*config/sh/env"
+}
+for _, pattern in ipairs(shell_patterns) do
+  vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+    pattern = pattern,
+    callback = function()
+      vim.bo.filetype = "sh"
+    end,
+  })
+end

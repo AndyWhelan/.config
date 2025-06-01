@@ -1,0 +1,74 @@
+# ~/.bashrc
+# Default non-login-shell loading order:
+#       Interactive:
+#               1. ~/.bashrc
+#       Non-interactive:
+#               1. $BASH_ENV
+# Shell context: ( !log, sh=bash, sc=user )
+# {{{ Explanation
+# If a field is unset in the context tuple, assume it is unspecified and may vary
+#       i[nteractive] (bool)    `[ -n "$PS1" ] && echo 1 || echo 0`
+#       k[ernel]                `uname -s | tr '[:upper:]' '[:lower:]'`
+#       log[in-shell] (bool)    `case "$0" in -*) echo 1 ;; *) echo 0 ;; esac`
+#       par[ent process]        `ps -o comm= -p $(ps -o ppid= -p $$)`
+#       sc[ope]                 { sys[tem], user }
+#       sh[elltype]             { b[ash], z[sh], k[sh], ... }
+# }}}
+
+# Helpers
+[ -z "$HELPERS_LAZY_LOADER" ] && \
+   HELPERS_LAZY_LOADER="$HOME/.config/sh/helpers_lazy_loader.sh"
+if [ -f "$HELPERS_LAZY_LOADER" ]; then
+   if ! . "$HELPERS_LAZY_LOADER"; then 
+      return 1 2>/dev/null || exit 1
+   fi
+else
+   echo "Cannot find lazy loader. Aborting" >&2
+   return 127 2>/dev/null || exit 127
+fi
+
+# Don't run if non-interactive
+[ -z "$INTERACTIVE_GUARD" ] && \
+   INTERACTIVE_GUARD="$HOME/.config/sh/scripts/interactive_guard.sh"
+if [ -f "$INTERACTIVE_GUARD" ]; then
+   if ! source_with_debug "$INTERACTIVE_GUARD" '.bashrc' 'iguard'; then
+      return 1
+   fi
+else
+   echo "Interactive guard not found: $INTERACTIVE_GUARD" >&2
+   return 127
+fi
+
+# Sourcing
+source_with_debug "/etc/bashrc" '.bashrc' '/etc/bashrc'     # ( !log, sh=bash, sc=sys )
+source_with_debug "$HOME/.shrc" '.bashrc' '.shrc'   # ( !log, sc=user )
+
+# History Control
+shopt -s histappend # append to the history file, don't overwrite it
+HISTCONTROL=ignoreboth # no duplicate-lines / lines with spaces in history
+HISTFILESIZE=2000 # max size of ~/.bash_history
+HISTSIZE=1000 # commands in memory during shell session
+
+# Window size
+shopt -s checkwinsize
+
+# Vim-motions
+set -o vi
+
+# Prompt
+FG_USER="\[\033[38;5;180m\]"   # username
+FG_HOST="\[\033[38;5;109m\]"   # hostname
+FG_CWD="\[\033[38;5;144m\]"    # cwd
+FG_GIT="\[\033[38;5;102m\]"    # git branch
+RESET="\[\033[0m\]"
+parse_git_branch() {
+  git symbolic-ref --short HEAD 2>/dev/null
+}
+PS1="${FG_USER}\u${RESET}@${FG_HOST}\h${RESET} ${FG_CWD}\w${RESET} ${FG_GIT}(git)-\$(
+  branch=\$(parse_git_branch); \
+  if [ -n \"\$branch\" ]; then \
+    echo \"(\$branch)\"; \
+  fi \
+)-${RESET} ❯ $ "
+
+true # explicitly signal success without returning if sourced

@@ -1,0 +1,12 @@
+darwin_dynamic_profiles="$HOME/Library/Application Support/iTerm2/DynamicProfiles"
+export EDITOR='vi'
+export VISUAL='nvim'
+export TZ='Europe/Dublin'
+
+case "$OSTYPE" in
+   darwin*) 
+      if [ -d "$darwin_dynamic_profiles" ]; then
+         export ITERM2_DYNAMIC_PROFILES="$darwin_dynamic_profiles"
+      fi
+      ;;
+esac

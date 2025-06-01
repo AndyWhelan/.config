@@ -1,0 +1,22 @@
+~/.common_profile          /usr/local/opt/man-db/bin       
+~/.common_profile          /opt/homebrew/bin
+                           /usr/local/bin
+                           /usr/bin
+                           /bin
+                           /usr/sbin
+                           /sbin
+                           /Users/john.swain/Library/Python/2.7/bin
+                           /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin
+                           /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin
+                           /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
+                           /Library/Apple/usr/bin
+                           /Library/TeX/texbin
+                           /Applications/Wireshark.app/Contents/MacOS
+                           /Applications/iTerm.app/Contents/Resources/utilities
+/bin
+/sbin
+/usr/bin
+/usr/sbin
+/usr/libexec
+/System/Library/CoreServices/
+/bin:/sbin:/usr/bin:/usr/sbin:/usr/libexec:/System/Library/CoreServices

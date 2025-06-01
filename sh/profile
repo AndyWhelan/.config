@@ -1,0 +1,29 @@
+# ~/.profile
+# Sourced by ~/.bash_profile, ~/.zprofile, etc.
+# Shell context: ( log, sc=user )
+# {{{ Explanation
+# If a field is unset in the context tuple, assume it is unspecified and may vary
+#       i[nteractive] (bool)    `[ -n "$PS1" ] && echo 1 || echo 0`
+#       k[ernel]                `uname -s | tr '[:upper:]' '[:lower:]'`
+#       log[in-shell] (bool)    `case "$0" in -*) echo 1 ;; *) echo 0 ;; esac`
+#       par[ent process]        `ps -o comm= -p $(ps -o ppid= -p $$)`
+#       sc[ope]                 { sys[tem], user }
+#       sh[elltype]             { b[ash], z[sh], k[sh], ... }
+# }}}
+
+[ -z "$HELPERS_LAZY_LOADER" ] && \
+   HELPERS_LAZY_LOADER="$HOME/.config/sh/helpers_lazy_loader.sh"
+if [ -f "$HELPERS_LAZY_LOADER" ]; then
+   if ! . "$HELPERS_LAZY_LOADER"; then 
+      return 1 2>/dev/null || exit 1
+   fi
+else
+   echo "Cannot find lazy loader. Aborting" >&2
+   return 127 2>/dev/null || exit 127
+fi
+
+# Sourcing
+source_with_debug "$HOME/.path" '.profile' '.path'
+source_with_debug "$HOME/.env" '.profile' '.env'
+
+true # explicitly signal success without returning if sourced

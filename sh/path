@@ -1,0 +1,4 @@
+export CDPATH=".:/src:/$HOME"
+
+export PATH="/usr/local/opt/man-db/bin:$PATH"   # favour GNU man
+export PATH="/opt/homebrew/bin:$PATH"           # favour homebrew binaries
