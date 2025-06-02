@@ -1,0 +1,91 @@
+# Script-variables
+# {{{
+#----helpers
+functions_folder="$HOME/.config/shells/functions"
+scripts_folder="$HOME/.config/shells/scripts"
+#----[n]vim
+vimrc_common="$HOME/.common.vim"
+vimrc_vanilla="$HOME/.vimrc"
+vimrc_neo="$HOME/.config/nvim/init.lua"
+#----shell config files
+bash_profile="$HOME/.bash_profile"
+bashrc="$HOME/.bashrc"
+common_profile="$HOME/.common_profile"
+common_rc="$HOME/.common_rc"
+shellname=$(ps -p $$ -o comm=)
+shellname="${shellname#-}" # remove leading dash used for login shell encoding
+shellname=$(basename "$shellname")
+zprofile="$HOME/.zprofile"
+if [ "$shellname" = 'zsh' ]; then
+   shellprofile="$zprofile"
+elif [ "$shellname" = 'bash' ]; then
+   shellprofile="$bash_profile"   
+else # assume it's just `shell_profile`
+   shellprofile="$HOME/.$shellname"
+fi
+shellrc="$HOME/.$shellname"rc
+zshrc="$HOME/.zshrc"
+#  }}}
+
+# Calendar
+alias jan='cal -m 01'
+alias feb='cal -m 02'
+alias mar='cal -m 03'
+alias apr='cal -m 04'
+alias may='cal -m 05'
+alias jun='cal -m 06'
+alias jul='cal -m 07'
+alias aug='cal -m 08'
+alias sep='cal -m 09'
+alias oct='cal -m 10'
+alias nov='cal -m 11'
+alias dec='cal -m 12'
+
+# Editing
+alias e='nvim -O'
+alias ebp="e $bash_profile"
+alias ebrc="e $bashrc"
+alias ecp="e $common_profile"
+alias ecrc="e $common_rc"
+alias ecvrc="e $common_vimrc"
+alias esrc="e $shellrc"
+alias evrc="e $HOME/.config/nvim/init.lua $HOME/.common.vim"
+alias ezp="e ~/.zprofile"
+alias ezrc="e ~/.zshrc"
+alias vimdiff="nvim -d"
+
+# gb
+alias gb="cat ~/.gb" # git-wrapper (propr. so not tracked)
+
+# grep
+alias hgrep='history | grep -i'
+
+# ls
+case "$OSTYPE" in
+   linux*|gnu*)
+      alias ls='ls --color=auto'
+      ;;
+   darwin*)
+      if command -v gls >/dev/null 2>&1; then
+         alias ls='gls --color=auto'
+      else
+         alias ls='ls -G'
+      fi
+      ;;
+   *) # fallback
+      ;;
+esac
+alias lsa='ls -a'
+alias lsal='ls -al'
+alias lsgi='ls | grep -i'
+alias lsl='ls -l'
+
+# matlab
+alias matlab="/Applications/MATLAB_R2024b.app/bin/matlab -r \"userpath('\"$(pwd)\"');\""  # TODO: darwin
+
+# pip/python
+alias pip=pip3
+alias python=python3
+
+# Sourcing
+alias ssrc=". $shellrc"

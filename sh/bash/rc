@@ -17,7 +17,7 @@
 
 # Helpers
 [ -z "$HELPERS_LAZY_LOADER" ] && \
-   HELPERS_LAZY_LOADER="$HOME/.config/sh/helpers_lazy_loader.sh"
+   HELPERS_LAZY_LOADER="$HOME/.config/sh/scripts/helpers_lazy_loader.sh"
 if [ -f "$HELPERS_LAZY_LOADER" ]; then
    if ! . "$HELPERS_LAZY_LOADER"; then 
       return 1 2>/dev/null || exit 1
@@ -31,7 +31,8 @@ fi
 [ -z "$INTERACTIVE_GUARD" ] && \
    INTERACTIVE_GUARD="$HOME/.config/sh/scripts/interactive_guard.sh"
 if [ -f "$INTERACTIVE_GUARD" ]; then
-   if ! source_with_debug "$INTERACTIVE_GUARD" '.bashrc' 'iguard'; then
+   if ! source_with_debug "$INTERACTIVE_GUARD" '~/.bashrc' \
+      '~/.config/sh/scripts/interactive_guard.sh'; then
       return 1
    fi
 else
@@ -40,35 +41,11 @@ else
 fi
 
 # Sourcing
-source_with_debug "/etc/bashrc" '.bashrc' '/etc/bashrc'     # ( !log, sh=bash, sc=sys )
-source_with_debug "$HOME/.shrc" '.bashrc' '.shrc'   # ( !log, sc=user )
-
-# History Control
-shopt -s histappend # append to the history file, don't overwrite it
-HISTCONTROL=ignoreboth # no duplicate-lines / lines with spaces in history
-HISTFILESIZE=2000 # max size of ~/.bash_history
-HISTSIZE=1000 # commands in memory during shell session
-
-# Window size
-shopt -s checkwinsize
-
-# Vim-motions
-set -o vi
-
-# Prompt
-FG_USER="\[\033[38;5;180m\]"   # username
-FG_HOST="\[\033[38;5;109m\]"   # hostname
-FG_CWD="\[\033[38;5;144m\]"    # cwd
-FG_GIT="\[\033[38;5;102m\]"    # git branch
-RESET="\[\033[0m\]"
-parse_git_branch() {
-  git symbolic-ref --short HEAD 2>/dev/null
-}
-PS1="${FG_USER}\u${RESET}@${FG_HOST}\h${RESET} ${FG_CWD}\w${RESET} ${FG_GIT}(git)-\$(
-  branch=\$(parse_git_branch); \
-  if [ -n \"\$branch\" ]; then \
-    echo \"(\$branch)\"; \
-  fi \
-)-${RESET} ❯ $ "
+source_with_debug "/etc/bashrc" '~/.bashrc' '/etc/bashrc'
+source_with_debug "$HOME/.rc" '~/.bashrc' '~/.rc'
+source_with_debug "$HOME/.config/sh/bash/prompt" '~/.bashrc' \
+   '~/.config/sh/bash/prompt'
+source_with_debug "$HOME/.config/sh/bash/interactive" '~/.bashrc' \
+   '~/.config/sh/bash/interactive'
 
 true # explicitly signal success without returning if sourced

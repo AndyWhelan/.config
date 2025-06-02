@@ -1,0 +1,10 @@
+# compinit - for env variable autocomplete and others
+autoload -Uz compinit
+compinit
+
+# complist - more interactivity for completion
+zmodload zsh/complist
+zstyle ':completion:*' menu select
+
+# vim-motions
+set -o vi

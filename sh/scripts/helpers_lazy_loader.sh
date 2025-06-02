@@ -1,11 +1,10 @@
 # Stubs (lazy-loaded)
 
 if [ -n "$HELPERS_LOADED" ]; then 
-   [ "$DEBUG_SHELL" = '1' ] && echo "Helpers already loaded."
    return 0;
 fi
 
-FUNCTIONS_DIR="$HOME/.shfuncs"
+FUNCTIONS_DIR="$HOME/.config/sh/functions"
 
 # Check if function file exists for a given name
 _load_function() { # TODO: not POSIX compliant because uses `local`

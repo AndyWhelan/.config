@@ -1,0 +1,11 @@
+# History
+shopt -s histappend # append to the history file, don't overwrite it
+HISTCONTROL=ignoreboth # no duplicate-lines / lines with spaces in history
+HISTFILESIZE=2000 # max size of ~/.bash_history
+HISTSIZE=1000 # commands in memory during shell session
+
+# Window size
+shopt -s checkwinsize
+
+# Vim-motions
+set -o vi

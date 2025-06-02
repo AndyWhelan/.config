@@ -1,0 +1,20 @@
+# Prompt
+COLOR_USER=180
+COLOR_HOST=109
+COLOR_CWD=144
+COLOR_GIT=102
+ESC=$'\033'
+CSI='['
+FG_256_COLOR='38;5'
+RESET_CODE='0'
+END='m'
+FG_USER=$'\['"$ESC$CSI$FG_256_COLOR;${COLOR_USER}$END"$'\]'
+FG_HOST=$'\['"$ESC$CSI$FG_256_COLOR;${COLOR_HOST}$END"$'\]'
+FG_CWD=$'\['"$ESC$CSI$FG_256_COLOR;${COLOR_CWD}$END"$'\]'
+FG_GIT=$'\['"$ESC$CSI$FG_256_COLOR;${COLOR_GIT}$END"$'\]'
+RESET=$'\['"$ESC$CSI$RESET_CODE$END"$'\]'
+parse_git_branch() {
+   git symbolic-ref --short HEAD 2>/dev/null
+}
+PS1="${FG_USER}\u${RESET}@${FG_HOST}\h${RESET} ${FG_CWD}\w${RESET} \
+${FG_GIT}(git)-[\$(parse_git_branch)]-${RESET} ❯ $ "

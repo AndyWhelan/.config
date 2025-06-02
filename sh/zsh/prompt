@@ -1,0 +1,4 @@
+autoload -Uz vcs_info
+precmd() { vcs_info } # triggers vcs_info refresh for each prompt
+setopt prompt_subst
+PROMPT='%F{180}%n%f@%F{109}%m%f %F{144}%~%f%F{102}${vcs_info_msg_0_}%f ❯ ' # TODO: organise a little nicer

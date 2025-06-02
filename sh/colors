@@ -1,0 +1,41 @@
+# SGR attribute codes {{{
+SGR_RESET='0'          # reset all attributes
+SGR_BOLD='01'          # bold or increased intensity
+
+FG_RED='31'            # red foreground
+FG_GREEN='32'          # green foreground
+FG_YELLOW='33'         # yellow foreground
+FG_BLUE='34'           # blue foreground
+FG_MAGENTA='35'        # magenta foreground
+FG_CYAN='36'           # cyan foreground
+
+BG_BLUE='44'           # blue background
+BG_YELLOW='43'         # yellow background
+BG_CYAN='46'           # cyan background
+BG_RED='41'            # red background
+BG_GREEN='42'          # green background
+#}}}
+
+# less
+ESC="\033"
+LESS_TERMCAP_mb="${ESC}[${SGR_BOLD};${FG_RED}m"               # blinking text
+LESS_TERMCAP_md="${ESC}[${SGR_BOLD};${FG_RED}m"               # bold text
+LESS_TERMCAP_me="${ESC}[${SGR_RESET}m"                        # reset mode
+LESS_TERMCAP_so="${ESC}[${SGR_BOLD};${BG_BLUE};${FG_YELLOW}m" # standout mode
+LESS_TERMCAP_se="${ESC}[${SGR_RESET}m"                        # end standout
+LESS_TERMCAP_us="${ESC}[${SGR_BOLD};${FG_GREEN}m"             # underline mode start
+LESS_TERMCAP_ue="${ESC}[${SGR_RESET}m"                        # underline mode end
+
+# ls
+LS_COLORS="bd=${FG_BLUE};${BG_CYAN}"                   # Block Device
+LS_COLORS="${LS_COLORS}:cd=${FG_BLUE};${BG_YELLOW}"    # Character Device
+LS_COLORS="${LS_COLORS}:di=${FG_BLUE}"                 # Directory
+LS_COLORS="${LS_COLORS}:fi=${SGR_RESET}"               # File (regular)
+LS_COLORS="${LS_COLORS}:ln=${FG_CYAN}"                 # Link (sym)
+LS_COLORS="${LS_COLORS}:ow=${SGR_RESET};${BG_YELLOW}"  # Other-Writable directory
+LS_COLORS="${LS_COLORS}:pi=${FG_YELLOW}"               # Pipe (named, FIFO)
+LS_COLORS="${LS_COLORS}:so=${FG_MAGENTA}"              # Socket
+LS_COLORS="${LS_COLORS}:sg=${SGR_RESET};${BG_CYAN}"    # Setgid
+LS_COLORS="${LS_COLORS}:su=${SGR_RESET};${BG_RED}"     # Setuid
+LS_COLORS="${LS_COLORS}:tw=${SGR_RESET};${BG_GREEN}"   # sTicky, other-Writable dir
+export LS_COLORS

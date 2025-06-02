@@ -1,6 +1,14 @@
-# ~/.profile
-# Sourced by ~/.bash_profile, ~/.zprofile, etc.
-# Shell context: ( log, sc=user )
+# ~/.zprofile
+# Default login-shell loading order:
+#       1. /etc/zsh/zshenv
+#       2. ~/.zshenv
+#       3. /etc/zsh/profile
+#       4. ~/.zprofile
+#       5. /etc/zsh/zshrc
+#       6. ~/.zshrc
+#       7. /etc/zsh/zlogin
+#       8. ~/.zlogin
+# Shell context: ( log, sh=zsh, sc=user )
 # {{{ Explanation
 # If a field is unset in the context tuple, assume it is unspecified and may vary
 #       i[nteractive] (bool)    `[ -n "$PS1" ] && echo 1 || echo 0`
@@ -11,6 +19,7 @@
 #       sh[elltype]             { b[ash], z[sh], k[sh], ... }
 # }}}
 
+# Helpers
 [ -z "$HELPERS_LAZY_LOADER" ] && \
    HELPERS_LAZY_LOADER="$HOME/.config/sh/scripts/helpers_lazy_loader.sh"
 if [ -f "$HELPERS_LAZY_LOADER" ]; then
@@ -22,7 +31,6 @@ else
    return 127 2>/dev/null || exit 127
 fi
 
-source_with_debug "$HOME/.config/sh/path" '~/.profile' '~/.config/sh/path'
-source_with_debug "$HOME/.config/sh/env" '~/.profile' '~/.config/sh/env'
+source_with_debug "$HOME/.profile" '~/.zprofile' '~/.profile'
 
 true # explicitly signal success without returning if sourced

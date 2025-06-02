@@ -1,0 +1,22 @@
+# Helpers
+[ -z "$HELPERS_LAZY_LOADER" ] && \
+   HELPERS_LAZY_LOADER="$HOME/.config/sh/scripts/helpers_lazy_loader.sh"
+if [ -f "$HELPERS_LAZY_LOADER" ]; then
+   if ! . "$HELPERS_LAZY_LOADER"; then 
+      return 1 2>/dev/null || exit 1
+   fi
+else
+   echo "Cannot find lazy loader. Aborting" >&2
+   return 127 2>/dev/null || exit 127
+fi
+
+# zsh-vi-mode
+# ... optional settings BEFORE sourcing the plugin
+ZVM_CURSOR_STYLE_ENABLED=true
+ZVM_LINE_INIT_MODE=viins
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+source_with_debug "$HOME/.config/sh/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh" \
+   '~/.config/sh/zsh/pluginrc' '~/.config/sh/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh'
+
+# zsh-syntax-highlighting
+source_with_debug "$HOME/.config/sh/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh" '~/.config/sh/zsh/pluginrc' '~/.config/sh/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh'

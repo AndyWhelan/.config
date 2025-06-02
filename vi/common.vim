@@ -108,6 +108,7 @@ nnoremap <Space> <C-w>
 "        normal! cc
 "    endif
 "endfunction
+set textwidth=85
 syntax on
 set scrolloff=999 " so that redraws scrolling in middle of buffer
 set cursorline
@@ -202,7 +203,6 @@ endfunction
 augroup tex_remaps
     autocmd!
     autocmd BufNewFile *.tex 0r ~/.vim/templates/skeleton.tex
-    autocmd FileType tex setlocal textwidth=85
     autocmd FileType tex setlocal omnifunc=vimtex#omnifunc
     "autocmd FileType tex inoremap <buffer> <expr> $ "\$$\<Esc>i"
     "autocmd FileType tex inoremap <buffer> <expr> $ "\$$\<Esc>i"

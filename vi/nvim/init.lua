@@ -167,9 +167,7 @@ local shell_patterns = {
   "*.env*",
   "*.shell_*",
   "*.path*",
-  "*config/sh/profile",
-  "*config/sh/path",
-  "*config/sh/env"
+  "*config/sh/*",
 }
 for _, pattern in ipairs(shell_patterns) do
   vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
