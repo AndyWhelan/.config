@@ -1,73 +1,20 @@
-" Logging {{{
-command! LogStart redir! > $HOME/vimlog.txt
-command! LogContinue redir! >> $HOME/vimlog.txt
-command! LogStop redir END
-function! IsFileInBuffers(filename) abort
-   " Iterate over all buffers
-   for buf in range(1, bufnr('$'))
-      if bufloaded(buf)
-         " Get full path of buffer's file
-         let bufname = bufname(buf)
-         " Compare with target filename (full path recommended)
-         if fnamemodify(bufname, ':p') ==# fnamemodify(a:filename, ':p')
-            return 1  " Found the file in a buffer
-         endif
-      endif
-   endfor
-   return 0  " File not found in any loaded buffer
-endfunction
-function! s:MaybeStartLog()
-   "if expand('%:p') !=# expand('$HOME/vimlog.txt')
-   if !IsFileInBuffers('$HOME/vimlog.txt')
-      LogStart
-   endif
-endfunction
-function! s:MaybeContinue()
-   if expand('%:p') ==# expand('$HOME/vimlog.txt')
-      LogContinue
-   endif
-endfunction
-augroup log_settings
-   autocmd!
-   autocmd VimEnter * call s:MaybeStartLog()
-   autocmd BufReadPre,BufNewFile $HOME/vimlog.txt LogStop
-   autocmd WinClosed * call s:MaybeContinue()
-   autocmd VimLeave * LogStop
-augroup END
-"  }}}
-"  System settings {{{
+" System settings
 :if filereadable( "/etc/vimrc" )
    source /etc/vimrc
 :endif
-"   }}}   
-"  Arista-specific settings {{{
+
+" Arista-specific settings
 :if filereadable( $VIM . "/vimfiles/arista.vim" )
    source $VIM/vimfiles/arista.vim
 :elseif filereadable( $HOME . "/.vim/vimfiles/arista.vim" )
    source $HOME/.vim/vimfiles/arista.vim
 :endif
-"  }}}
-" Plugins {{{
-" Initialize vim-plug
-call plug#begin('~/.vim/plugged')
-" Add your plugins here, for example:
-" Plug 'wannesm/wmgraphviz.vim'
+
+" Plugins
+call plug#begin('~/.vim/plugged') " initialize vim-plug
 Plug 'morhetz/gruvbox'
-" Plug 'tpope/vim-fugitive'
-if has( 'nvim' )
-   Plug 'nvim-lualine/lualine.nvim'
-   Plug 'nvim-tree/nvim-web-devicons'
-   Plug 'neovim/nvim-lspconfig'
-   Plug 'hrsh7th/nvim-cmp'
-   Plug 'hrsh7th/cmp-nvim-lsp'
-   Plug 'hrsh7th/cmp-buffer'
-   Plug 'hrsh7th/cmp-path'
-   Plug 'onsails/ls'
-   Plug 'onsails/lspkind.nvim'
-   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-endif
 call plug#end()
-"  }}}
+
 " Global personalized settings {{{
 " Default fallback for all buffers {{{
 augroup default_fallback_settings

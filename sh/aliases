@@ -10,8 +10,9 @@ vimrc_neo="$HOME/.config/nvim/init.lua"
 #----shell config files
 bash_profile="$HOME/.bash_profile"
 bashrc="$HOME/.bashrc"
-common_profile="$HOME/.common_profile"
-common_rc="$HOME/.common_rc"
+common_profile="$HOME/.profile"
+common_rc="$HOME/.rc"
+common_vimrc="$HOME/.common.vim"
 shellname=$(ps -p $$ -o comm=)
 shellname="${shellname#-}" # remove leading dash used for login shell encoding
 shellname=$(basename "$shellname")
@@ -20,7 +21,7 @@ if [ "$shellname" = 'zsh' ]; then
    shellprofile="$zprofile"
 elif [ "$shellname" = 'bash' ]; then
    shellprofile="$bash_profile"   
-else # assume it's just `shell_profile`
+else # assume it's just `shellprofile`
    shellprofile="$HOME/.$shellname"
 fi
 shellrc="$HOME/.$shellname"rc
@@ -43,16 +44,33 @@ alias dec='cal -m 12'
 
 # Editing
 alias e='nvim -O'
-alias ebp="e $bash_profile"
-alias ebrc="e $bashrc"
+alias vimdiff="nvim -d"
+# ~/.config/sh/
+alias eal="e $HOME/.config/sh/aliases"
+alias eco="e $HOME/.config/sh/colors"
 alias ecp="e $common_profile"
 alias ecrc="e $common_rc"
 alias ecvrc="e $common_vimrc"
+alias een="e $HOME/.config/sh/env"
+alias epa="e $HOME/.config/sh/path"
+alias esp="e $shellprofile"
 alias esrc="e $shellrc"
+# ~/.config/sh/bash/
+alias ebp="e $bash_profile"
+alias ebrc="e $bashrc"
+alias ebpr="e $HOME/.config/sh/bash/prompt"
+alias ebin="e $HOME/.config/sh/bash/interactive"
+# ~/.config/sh/zsh/
+alias ezp="e $HOME/.zprofile"
+alias ezrc="e $HOME/.zshrc"
+alias ezplug="e $HOME/.config/sh/zsh/pluginrc"
+alias ezpr="e $HOME/.config/sh/zsh/prompt"
+alias ezin="e $HOME/.config/sh/zsh/interactive"
+alias ezen="e $HOME/.zshenv"
+# ~/.config/term/
+alias etmux="e $HOME/.tmux.conf"
+# ~/.config/vi/
 alias evrc="e $HOME/.config/nvim/init.lua $HOME/.common.vim"
-alias ezp="e ~/.zprofile"
-alias ezrc="e ~/.zshrc"
-alias vimdiff="nvim -d"
 
 # gb
 alias gb="cat ~/.gb" # git-wrapper (propr. so not tracked)
@@ -89,3 +107,25 @@ alias python=python3
 
 # Sourcing
 alias ssrc=". $shellrc"
+# ~/.config/sh/
+alias salias="source $HOME/.config/sh/aliases"
+alias scol="source $HOME/.config/sh/colors"
+alias scp="source $common_profile"
+alias scrc="source $common_rc"
+alias scvrc="source $common_vimrc"
+alias senv="source $HOME/.config/sh/env"
+alias spath="source $HOME/.config/sh/path"
+alias ssp="source $shellprofile"
+alias ssrc="source $shellrc"
+# ~/.config/sh/bash/
+alias sbp="source $bash_profile"
+alias sbrc="source $bashrc"
+alias sbpr="source $HOME/.config/sh/bash/prompt"
+alias sbint="source $HOME/.config/sh/bash/interactive"
+# ~/.config/sh/zsh/
+alias szp="source $HOME/.zprofile"
+alias szrc="source $HOME/.zshrc"
+alias szplug="source $HOME/.config/sh/zsh/pluginrc"
+alias szpr="source $HOME/.config/sh/zsh/prompt"
+alias szin="source $HOME/.config/sh/zsh/interactive"
+alias szenv="source $HOME/.zshenv"
