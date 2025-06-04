@@ -48,4 +48,4 @@ end)
 -- After packer startup, call other setups
 require("plugins.cmp")
 require("plugins.luasnip")
-require("plugins.lspconfig")
+require("plugins.lsp")
