@@ -1,0 +1,21 @@
+{
+   "tikzpicture environment": {
+      "prefix": "tikz",
+      "body": [
+         "\\begin{tikzpicture}",
+         "   $0",
+         "\\end{tikzpicture}"
+      ],
+      "description": "Begin TikZ picture environment"
+   },
+   "document environment": {
+      "prefix": "doc",
+      "body": [
+         "\\documentclass{article}",
+         "\\begin{document}",
+         "   $0",
+         "\\end{document}"
+      ],
+      "description": "Basic LaTeX document structure"
+   }
+}

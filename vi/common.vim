@@ -151,8 +151,6 @@ augroup tex_remaps
     autocmd!
     autocmd BufNewFile *.tex 0r ~/.vim/templates/skeleton.tex
     autocmd FileType tex setlocal omnifunc=vimtex#omnifunc
-    "autocmd FileType tex inoremap <buffer> <expr> $ "\$$\<Esc>i"
-    "autocmd FileType tex inoremap <buffer> <expr> $ "\$$\<Esc>i"
     "autocmd FileType tex inoremap <buffer> <expr> \( "\\( \\)\<Esc>F(a "
     "autocmd FileType tex inoremap <buffer> <expr> \addcon "\\addcontentsline{toc}{section}{}\<Esc>k$F{yi{j$F{p"
     "autocmd FileType tex inoremap <buffer> <expr> \coordin "\\coordinate () at ();\<Esc>^f(a"
@@ -192,7 +190,7 @@ augroup tex_remaps
     "autocmd FileType tex inoremap <buffer> <expr> {sube "{subequations}\<CR>\\end{subequations}\<Esc>==kyypd$a\<TAB>"
     "autocmd FileType tex inoremap <buffer> <expr> {tabu "{tabular}\<CR>\\end{tabular}\<Esc>==kyypd$a\<TAB>"
     "autocmd FileType tex inoremap <buffer> <expr> {vm "{vmatrix}\<CR>\\end{vmatrix}\<Esc>==kyypd$a\<TAB>"
-    autocmd FileType tex inoremap <buffer> \be \begin
+    "autocmd FileType tex inoremap <buffer> \be \begin
     autocmd FileType tex nnoremap ,b :call SplitAtLastWordAndMove()<CR>
     autocmd FileType tex let b:comment="\%"
 augroup END

@@ -3,6 +3,7 @@ return {
       "neovim/nvim-lspconfig",
       lazy=false,
       priority=1000,
+      enabled=false,
       config = function()
          local lspconfig = require("lspconfig")
          local util = require("lspconfig.util")

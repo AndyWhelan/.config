@@ -1,0 +1,18 @@
+{
+   "expand": {
+      "prefix": "exp",
+      "body": [
+         "expand"
+      ],
+      "name": "Explain name",
+      "description": "Expand description"
+   },
+   "explain": {
+      "prefix": "exp",
+      "body": [
+         "explain"
+      ],
+      "name": "Explain name",
+      "description": "Explain description"
+   }
+}

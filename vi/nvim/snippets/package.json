@@ -1,0 +1,18 @@
+{
+  "contributes": {
+    "snippets": [
+      {
+        "language": "lua",
+        "path": "./lua.json"
+      },
+      {
+        "language": "tex",
+        "path": "./tex.json"
+      },
+      {
+        "language": "plaintex",
+        "path": "./tex.json"
+      }
+    ]
+  }
+}

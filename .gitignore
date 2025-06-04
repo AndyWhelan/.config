@@ -1,10 +1,12 @@
 wireshark/
+*lazy-lock*
 *.log
 *.viminfo
 *vimlog.txt
 # Ignore everything under these
 term/iterm2/**
 vi/vim/**
+vi/nvim/plugin/**
 # Except allow the following
 !term/iterm2/DynamicProfiles/
 !term/iterm2/DynamicProfiles/**
