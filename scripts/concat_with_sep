@@ -1,0 +1,21 @@
+#!/bin/sh
+
+HOME_PREFIX="$HOME"
+
+for f in "$@"; do
+   # Expand the file path to an absolute one (naively)
+   case "$f" in
+      /*) abs_path="$f" ;;                         # Already absolute
+      ~*) set -- "$f"; abs_path="$1" ;;            # Let shell expand ~
+      *) abs_path="$(pwd)/$f" ;;                   # Relative path
+   esac
+
+    # Replace $HOME with ~ in display
+    case "$abs_path" in
+       "$HOME_PREFIX"/*) display_path="~${abs_path#$HOME_PREFIX}" ;;
+       *) display_path="$abs_path" ;;
+    esac
+
+    echo "<--- $display_path --->"
+    cat "$abs_path"
+ done

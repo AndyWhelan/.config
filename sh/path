@@ -1,5 +1,5 @@
-export CDPATH=".:/src:/$HOME"
-
+#export CDPATH=".:/src:/$HOME" TODO: fuzzy finder?
+export CDPATH="."
 export HOMEBREW_PREFIX="~/brew"
 PATH="$HOME/.config/scripts:$PATH"
 PATH="/usr/local/opt/man-db/bin:$PATH"   # favour GNU man
