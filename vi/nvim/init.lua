@@ -156,4 +156,4 @@ end, {silent = true})
 -- lspconfig setup {{{
 lspconfig.lua_ls.setup{}
 --  }}}
-ls_vs.lazy_load({ paths = { "./snippets" } })
+ls_vs.lazy_load({ paths = { "./lua/snippets" } })
