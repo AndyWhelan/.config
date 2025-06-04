@@ -7,6 +7,22 @@ function M.setup(packer_bootstrap)
       -- Colorscheme
       use 'morhetz/gruvbox'
 
+      use {
+         'nvim-lualine/lualine.nvim',
+         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+      }
+
+      -- Generic syntax helper
+      use {
+         "nvim-treesitter/nvim-treesitter",
+         run = ":TSUpdate"
+      }
+      use { --so it can work on text objects
+         "nvim-treesitter/nvim-treesitter-textobjects",
+         after = "nvim-treesitter",
+      }
+      use "nvim-treesitter/playground"
+
       -- Completion
       use 'hrsh7th/nvim-cmp'
       use 'hrsh7th/cmp-nvim-lsp'

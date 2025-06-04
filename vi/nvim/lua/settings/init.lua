@@ -28,6 +28,12 @@ vim.keymap.set('n', '<leader>sv', ':source $MYVIMRC<CR>', { noremap = true })
 vim.keymap.set('i', 'jk', '<Esc>', { noremap = true })
 vim.keymap.set('v', 'jk', '<Esc>', { noremap = true })
 
+vim.filetype.add({
+   extension = {
+      m = "matlab",
+   },
+})
+
 -- Custom command: copy range or whole file to Arista pb
 cmd([[
 command! -range=% Pb :<line1>,<line2>w !curl -F c=@- pb

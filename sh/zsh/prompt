@@ -1,4 +1,22 @@
+#autoload -Uz vcs_info
+#precmd() { vcs_info } # triggers vcs_info refresh for each prompt
+#setopt prompt_subst
+#PROMPT='%F{180}%n%f@%F{109}%m%f %F{144}%~%f%F{102}${vcs_info_msg_0_}%f ❯ ' # TODO: organise a little nicer
+truncate_path() {
+  local max_len=20
+  local full_path=$(print -P "%~")  # get path like %~ does
+  local len=${#full_path}
+
+  if (( len <= max_len )); then
+    echo "$full_path"
+  else
+    # Trim the tail of the path with prefix "... "
+    local truncated=${full_path: -$((max_len - 4))}
+    echo "... $truncated"
+  fi
+}
 autoload -Uz vcs_info
-precmd() { vcs_info } # triggers vcs_info refresh for each prompt
+precmd() { vcs_info }  # triggers vcs_info refresh for each prompt
 setopt prompt_subst
-PROMPT='%F{180}%n%f@%F{109}%m%f %F{144}%~%f%F{102}${vcs_info_msg_0_}%f ❯ ' # TODO: organise a little nicer
+
+PROMPT='%F{180}%n%f@%F{109}%m%f %F{144}$(truncate_path)%f%F{102}${vcs_info_msg_0_}%f ❯ '
