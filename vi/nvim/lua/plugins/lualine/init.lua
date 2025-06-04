@@ -2,6 +2,7 @@ local ll = require( 'lualine' )
 
 ll.setup({
    options = {
+      icons_enabled = false,  -- disable nerd font icons here
       theme = 'gruvbox',
       section_separators = '',
       component_separators = '',

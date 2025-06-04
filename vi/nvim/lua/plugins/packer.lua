@@ -9,7 +9,7 @@ function M.setup(packer_bootstrap)
 
       use {
          'nvim-lualine/lualine.nvim',
-         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+         --requires = { 'nvim-tree/nvim-web-devicons', opt = true }
       }
 
       -- Generic syntax helper
@@ -42,6 +42,26 @@ function M.setup(packer_bootstrap)
 
       -- LSP
       use 'neovim/nvim-lspconfig'
+
+      -- Telescope
+      use {
+         'nvim-telescope/telescope.nvim',
+         requires = { 'nvim-lua/plenary.nvim' }
+      }
+
+      -- todo
+      use{
+         'folke/todo-comments.nvim',
+         requires = { 'nvim-lua/plenary.nvim' }
+      }
+
+      -- whichkey
+      use {
+         "folke/which-key.nvim",
+         config = function()
+            require("plugins.which-key").setup()
+         end
+      }
 
       if packer_bootstrap then
          require('packer').sync()
