@@ -40,6 +40,7 @@ require('packer').startup(function(use)
    use 'saadparwaiz1/cmp_luasnip' -- Snippet completions
    -- }}}
    use "rafamadriz/friendly-snippets"
+   use 'neovim/nvim-lspconfig'
    -- L3MON4D3/LuaSnip{{{
    use({
       "L3MON4D3/LuaSnip",
@@ -56,10 +57,15 @@ require('packer').startup(function(use)
    end
 end)
 --}}}
+local ag = require( "augroups" )
 local cmp = require("cmp")
 local fsnips = require("luasnip.loaders.from_vscode").lazy_load()
 local ls = require("luasnip")
 local ls_vs = require("luasnip.loaders.from_vscode")
+local lspconfig = require('lspconfig')
+-- augroups setup {{{
+ag.setup()
+   --  }}}
 -- cmp setup {{{
 cmp.setup({
    snippet = {
@@ -136,9 +142,7 @@ cmp.setup({
    },
 })
 --}}}
--- LuaSnip loading/keymaps{{{
---ls_vs.lazy_load()
--- Key mappings for luasnip {{{
+-- LuaSnip Keymaps{{{
 vim.keymap.set({"i"}, "<C-K>", function() ls.expand() end, {silent = true})
 vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
 vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
@@ -149,6 +153,7 @@ vim.keymap.set({"i", "s"}, "<C-E>", function()
    end
 end, {silent = true})
 -- }}}
--- }}}
+-- lspconfig setup {{{
+lspconfig.lua_ls.setup{}
+--  }}}
 ls_vs.lazy_load({ paths = { "./snippets" } })
-require("augroups").setup()
