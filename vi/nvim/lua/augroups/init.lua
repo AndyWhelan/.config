@@ -1,20 +1,31 @@
+local M = {}
+
+local uv = vim.loop
 local path = vim.fn.stdpath("config") .. "/lua/augroups"
 
-local iter, err = vim.loop.fs_scandir(path)
-if not iter then
-   error("Failed to scan augroups dir: " .. err)
-end
+function M.setup()
+   local iter, err = uv.fs_scandir(path)
+   if not iter then
+      vim.notify("Failed to scan augroups dir: " .. err, vim.log.levels.ERROR)
+      return
+   end
 
-while true do
-   local name = vim.loop.fs_scandir_next(iter)
-   if not name then break end
-   if name:match("%.augroup.lua$") then
-      local fullpath = path .. "/" .. name
-      local ok, mod = pcall(dofile, fullpath)
-      if ok and type(mod.setup) == "function" then
-         mod.setup()
-      else
-         vim.notify("Failed to load: " .. name, vim.log.levels.ERROR)
+   while true do
+      local name = uv.fs_scandir_next(iter)
+      if not name then break end
+
+      -- Skip init.lua itself
+      if name ~= "init.lua" and name:match("%.lua$") then
+         -- Strip ".lua" to get module name
+         local mod_name = name:gsub("%.lua$", "")
+         local ok, mod = pcall(require, "augroups." .. mod_name)
+         if ok and type(mod.setup) == "function" then
+            mod.setup()
+         else
+            vim.notify("Failed to load augroup: " .. mod_name, vim.log.levels.ERROR)
+         end
       end
    end
 end
+
+return M

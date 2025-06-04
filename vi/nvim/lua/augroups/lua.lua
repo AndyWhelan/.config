@@ -11,7 +11,7 @@ function M.setup()
          vim.opt_local.foldenable = true
          vim.opt_local.foldmethod = 'marker'
          vim.b.comment = '--'
-         vim.cmd( 'LspStart' ) -- a hack because I can't figure out what's going wrong with lua_ls
+         --vim.cmd( 'LspStart' ) -- a hack because I can't figure out what's going wrong with lua_ls
       end
    })
 end

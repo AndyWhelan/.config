@@ -151,4 +151,4 @@ end, {silent = true})
 -- }}}
 -- }}}
 ls_vs.lazy_load({ paths = { "./snippets" } })
-
+require("augroups").setup()
