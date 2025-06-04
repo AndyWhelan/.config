@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Turn mouse off in tmux if we're inside tmux
+if [ -n "$TMUX" ]; then
+   tmux set -g mouse off 2>/dev/null
+fi
+
+# Run Neovim with all passed arguments
+/usr/local/bin/nvim "$@"
+
+# Restore mouse after exiting Neovim
+if [ -n "$TMUX" ]; then
+   tmux set -g mouse on 2>/dev/null
+fi

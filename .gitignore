@@ -3,6 +3,7 @@ wireshark/
 *.log
 *.viminfo
 *vimlog.txt
+*MATLAB*
 # Ignore everything under these
 term/iterm2/**
 vi/vim/**

@@ -1,3 +1,79 @@
+# ------- SAFE FOR NON-INTERACTIVE ---------
+# Calendar
+alias jan='cal -m 01'
+alias feb='cal -m 02'
+alias mar='cal -m 03'
+alias apr='cal -m 04'
+alias may='cal -m 05'
+alias jun='cal -m 06'
+alias jul='cal -m 07'
+alias aug='cal -m 08'
+alias sep='cal -m 09'
+alias oct='cal -m 10'
+alias nov='cal -m 11'
+alias dec='cal -m 12'
+
+# gb
+alias gb="cat ~/.gb" # safe for non-interactive
+
+# grep
+alias hgrep='history | grep -i' # safe for non-interactive
+
+# ls
+case "$OSTYPE" in
+   linux*|gnu*)
+      alias ls='ls --color=auto' # safe for non-interactive
+      ;;
+   darwin*)
+      if command -v gls >/dev/null 2>&1; then
+         alias ls='gls --color=auto' # safe for non-interactive
+      else
+         alias ls='ls -G' # safe for non-interactive
+      fi
+      ;;
+   *) # fallback
+      ;;
+esac
+alias lsa='ls -a' # safe for non-interactive
+alias lsal='ls -al' # safe for non-interactive
+alias lsgi='ls | grep -i' # safe for non-interactive
+alias lsl='ls -l' # safe for non-interactive
+
+# matlab
+alias matlab="$HOME/.local/bin/MATLAB_R2024b.app/bin/matlab -r \"userpath('\"$(pwd)\"');\""  # TODO: darwin - safe for non-interactive
+
+# pip/python
+alias pip=pip3 # safe for non-interactive
+alias python=python3 # safe for non-interactive
+
+
+# ------- ONLY SAFE FOR INTERACTIVE USE ---------
+
+# Helpers
+[ -z "$HELPERS_LAZY_LOADER" ] && \
+   HELPERS_LAZY_LOADER="$HOME/.config/sh/scripts/helpers_lazy_loader.sh"
+if [ -f "$HELPERS_LAZY_LOADER" ]; then
+   if ! . "$HELPERS_LAZY_LOADER"; then 
+      return 1 2>/dev/null || exit 1
+   fi
+else
+   echo "Cannot find lazy loader. Aborting" >&2
+   return 127 2>/dev/null || exit 127
+fi
+
+# Don't run if non-interactive
+[ -z "$INTERACTIVE_GUARD" ] && \
+   INTERACTIVE_GUARD="$HOME/.config/sh/scripts/interactive_guard.sh"
+if [ -f "$INTERACTIVE_GUARD" ]; then
+   if ! source_with_debug "$INTERACTIVE_GUARD" '~/.config/source/aliases' \
+      '~/.config/sh/scripts/interactive_guard.sh'; then
+      return 1
+   fi
+else
+   echo "Interactive guard not found: $INTERACTIVE_GUARD" >&2
+   return 127
+fi
+
 # Script-variables
 # {{{
 #----helpers
@@ -28,22 +104,13 @@ shellrc="$HOME/.$shellname"rc
 zshrc="$HOME/.zshrc"
 #  }}}
 
-# Calendar
-alias jan='cal -m 01'
-alias feb='cal -m 02'
-alias mar='cal -m 03'
-alias apr='cal -m 04'
-alias may='cal -m 05'
-alias jun='cal -m 06'
-alias jul='cal -m 07'
-alias aug='cal -m 08'
-alias sep='cal -m 09'
-alias oct='cal -m 10'
-alias nov='cal -m 11'
-alias dec='cal -m 12'
-
 # cd
 alias cdgitroot='cd "$(git rev-parse --show-toplevel 2>/dev/null || echo .)"'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
 
 # Editing
 alias e='nvim -O'
@@ -74,39 +141,6 @@ alias ezen="e $HOME/.zshenv"
 alias etmux="e $HOME/.tmux.conf"
 # ~/.config/vi/
 alias evrc="e $HOME/.config/nvim/init.lua $HOME/.common.vim"
-
-# gb
-alias gb="cat ~/.gb" # git-wrapper (propr. so not tracked)
-
-# grep
-alias hgrep='history | grep -i'
-
-# ls
-case "$OSTYPE" in
-   linux*|gnu*)
-      alias ls='ls --color=auto'
-      ;;
-   darwin*)
-      if command -v gls >/dev/null 2>&1; then
-         alias ls='gls --color=auto'
-      else
-         alias ls='ls -G'
-      fi
-      ;;
-   *) # fallback
-      ;;
-esac
-alias lsa='ls -a'
-alias lsal='ls -al'
-alias lsgi='ls | grep -i'
-alias lsl='ls -l'
-
-# matlab
-alias matlab="/Applications/MATLAB_R2024b.app/bin/matlab -r \"userpath('\"$(pwd)\"');\""  # TODO: darwin
-
-# pip/python
-alias pip=pip3
-alias python=python3
 
 # Sourcing
 alias ssrc=". $shellrc"

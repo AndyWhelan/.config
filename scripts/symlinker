@@ -1,0 +1,84 @@
+#!/bin/zsh
+
+TIMESTAMP=$(date +%Y%m%d%H%M%S)
+
+for dest in "$@"; do
+   echo "\nSetting up: $dest"
+   src=""
+   printf "Enter full path to source file to link to: \n"
+   vared -p "> " src
+
+  # Expand ~
+  src=${src/#\~/$HOME}
+  dest=${dest/#\~/$HOME}
+
+  # Check source exists
+  if [ ! -e "$src" ]; then
+     echo "Source '$src' does not exist. Skipping."
+     continue
+  fi
+
+  # Compute relative path from dest dir to src
+  src_abs=$(grealpath -m -- "$src" 2>/dev/null)
+  dest_dir=$(dirname -- "$dest")
+
+  if ! command -v grealpath >/dev/null 2>&1; then
+     echo "Error: grealpath not found. Install via 'brew install coreutils'."
+     continue
+  fi
+
+  echo "dest_dir : $dest_dir"
+  echo "src_abs : $src_abs"
+  src_rel=$(grealpath --relative-to="$dest_dir" "$src_abs")
+
+  if [ -L "$dest" ]; then
+     echo "'$dest' is already a symlink."
+     confirm=""
+     vared -p "Do you want to replace it? [y/N]: " confirm
+     case "$confirm" in
+        [Yy]*)
+           rm -- "$dest"
+           ln -s -- "$src_rel" "$dest"
+           echo "Re-linked '$dest' -> '$src_rel'"
+           ;;
+        *)
+           echo "Skipped '$dest'"
+           ;;
+     esac
+
+  elif [ -f "$dest" ] || [ -d "$dest" ]; then
+     backup="${dest}.backup.${TIMESTAMP}"
+     create_backup=""
+     vared -p "Create backup: '$backup'? [y/N]: " create_backup
+     case "$create_backup" in
+        [Yy]*)
+           echo "Backing up '$dest' to '$backup'"
+           mv -- "$dest" "$backup"
+           ln -s -- "$src_rel" "$dest"
+           echo "Linked '$dest' -> '$src_rel'"
+           ;;
+        *)
+           overwrite=""
+           vared -p "Not backing up '$dest'. Overwrite it? [y/N]: " overwrite
+           case "$overwrite" in
+              [Yy]*)
+                 rm -rf -- "$dest"
+                 ln -s -- "$src_rel" "$dest"
+                 echo "Overwrote '$dest'"
+                 ;;
+              *)
+                 echo "Keeping old '$dest'"
+                 ;;
+           esac
+           ;;
+     esac
+
+  else
+     if [ ! -d "$dest_dir" ]; then
+        echo "Creating directory '$dest_dir'"
+        mkdir -p -- "$dest_dir"
+     fi
+     ln -s -- "$src_rel" "$dest"
+     echo "Linked '$dest' -> '$src_rel'"
+  fi
+done

@@ -1,12 +1,10 @@
 #export CDPATH=".:/src:/$HOME" TODO: fuzzy finder?
 export CDPATH="."
-export HOMEBREW_PREFIX="~/brew"
-PATH="/Applications/MATLAB_R2024b.app/bin:$PATH"
-PATH="$HOME/.config/scripts:$PATH"
-PATH="$HOME/.local/bin:$PATH"
+export HOMEBREW_PREFIX="$HOME/brew"
 PATH="/usr/local/opt/man-db/bin:$PATH"   # favour GNU man
 PATH="/opt/homebrew/bin:$PATH"           # favour homebrew binaries
-PATH="$HOMEBREW_PREFIX:$PATH"
+PATH="$HOME/.local/bin:$PATH"            # favour local binaries, if there
+PATH="$HOMEBREW_PREFIX:$PATH"            # favour user-installed brew, if there
 export PATH
 
 export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"

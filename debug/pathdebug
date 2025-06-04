@@ -1,0 +1,45 @@
+Set in ~/.config/sh/path: 
+   /Users/andrewwhelan/brew
+   /Users/andrewwhelan/.local/bin
+   /opt/homebrew/bin
+   /usr/local/opt/man-db/bin
+
+Set via /etc/zprofile -> `/usr/libexec/path_helper -s`
+/etc/paths/:
+   /usr/local/bin
+   /usr/bin
+   /bin
+   /usr/sbin
+   /sbin
+   /Users/john.swain/Library/Python/2.7/bin
+
+/etc/paths.d/10-cryptexd:
+   /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin
+   /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin
+   /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
+
+/etc/paths.d/100-rvictl
+   /Library/Apple/usr/bin
+
+/etc/paths.d/TeX
+   /Library/TeX/texbin
+
+/etc/paths.d/Wireshark
+   /Applications/Wireshark.app/Contents/MacOS
+
+iTerm2:
+   /Applications/iTerm.app/Contents/Resources/utilities
+
+
+login-shell will have following order
+       1. /etc/zsh/zshenv  (/etc -> /private/etc/)      .. doesn't seem to be any
+       2. ~/.zshenv                                     .. does  nothing to PATH
+       3. /etc/zprofile -> /usr/libexec/path_helper
+
+
+
+       4. ~/.zprofile -> ~/.zprofile -> /.config/sh/path
+       5. /etc/zsh/zshrc
+       6. ~/.zshrc
+       7. /etc/zsh/zlogin
+       8. ~/.zlogin
