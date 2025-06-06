@@ -4,6 +4,7 @@ wireshark/
 *.viminfo
 *vimlog.txt
 *MATLAB*
+*gdrive*
 # Ignore everything under these
 term/iterm2/**
 vi/vim/**

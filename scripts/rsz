@@ -1,0 +1,63 @@
+#!/bin/sh
+
+# Validate argument count
+if [ "$#" -ne 1 ]; then
+   printf 'Usage: %s <iTerm2_width_percent>\n' "$0" >&2
+   exit 1
+fi
+
+# Validate argument is an integer between 1 and 100
+case $1 in
+   ''|*[!0-9]*)
+      printf 'Error: argument must be an integer\n' >&2
+      exit 1
+      ;;
+   *)
+      if [ "$1" -lt 1 ] || [ "$1" -gt 100 ]; then
+         printf 'Error: argument must be between 1 and 100\n' >&2
+         exit 1
+      fi
+      ;;
+esac
+
+# Extract resolutions into a temporary file
+res_file=$(mktemp)
+trap 'rm -f "$res_file"' EXIT
+
+system_profiler SPDisplaysDataType |
+   sed -nE 's/.*Resolution: ([0-9]+ x [0-9]+).*/\1/p' > "$res_file"
+
+# Display list of resolutions
+count=0
+while IFS= read -r res; do
+   count=$((count + 1))
+   printf "%d) %s\n" "$count" "$res"
+done < "$res_file"
+
+if [ "$count" -eq 0 ]; then
+   echo "No displays found." >&2
+   exit 1
+fi
+
+# Prompt user to select one
+printf "Choose display [1-%d]: " "$count"
+read -r choice
+
+if ! [ "$choice" -ge 1 ] 2>/dev/null || [ "$choice" -gt "$count" ]; then
+   echo "Invalid selection." >&2
+   exit 1
+fi
+
+# Get selected resolution (optional use — not passed to script here)
+selected_res=$(sed -n "${choice}p" "$res_file")
+
+# Path to AppleScript
+SCRIPT_PATH="$HOME/.config/applescripts/resize_windows.scpt"
+
+if [ ! -f "$SCRIPT_PATH" ]; then
+   printf 'Error: AppleScript file not found at %s\n' "$SCRIPT_PATH" >&2
+   exit 1
+fi
+
+# Run AppleScript with iTerm2 width percent only (unchanged as per request)
+osascript "$SCRIPT_PATH" "$1"

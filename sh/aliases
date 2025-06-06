@@ -142,6 +142,8 @@ alias etmux="e $HOME/.tmux.conf"
 # ~/.config/vi/
 alias evrc="e $HOME/.config/nvim/init.lua $HOME/.common.vim"
 
+alias chrome='open -a "Google Chrome"'
+alias libreoffice="open $HOME/brew/Caskroom/LibreOffice.app"
 # Sourcing
 alias ssrc=". $shellrc"
 # ~/.config/sh/

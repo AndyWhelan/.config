@@ -1,0 +1,15 @@
+digraph G {
+   layout=fdp;
+   splines=true;
+   overlap=false;
+   node [shape=circle];
+
+   // node positions
+   A [pos="0,0!"];
+   
+   A -> B;
+   B -> C;
+   C -> D;
+   D -> A;
+   A -> C;
+}

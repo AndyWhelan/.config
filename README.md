@@ -24,4 +24,4 @@ Shell-related config files. Anything in the top-level strives to be either
 - bash/zsh compliant (at the least)
 
 # [vi/](./vi/) 
-Any settings related to vi-family of editors
+Settings related to vi-family of editors

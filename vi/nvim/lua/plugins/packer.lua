@@ -66,6 +66,16 @@ function M.setup(packer_bootstrap)
       if packer_bootstrap then
          require('packer').sync()
       end
+
+      -- b0o/schemastore.nvim
+      use {
+         "b0o/schemastore.nvim",
+      }
+
+      -- for applescript highlighting TODO: check if this conflicts with any above
+      use {
+         'sheerun/vim-polyglot'
+      }
    end)
 end
 

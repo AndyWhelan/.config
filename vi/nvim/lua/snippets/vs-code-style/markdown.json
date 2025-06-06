@@ -1,0 +1,206 @@
+{
+   "YAML Metadata Block": {
+      "prefix": "meta",
+      "body": [
+         "---",
+         "title: \"${1:My Document}\"",
+         "author: \"${2:Author Name}\"",
+         "date: ${3:$(date +%Y-%m-%d)}",
+         "keywords: [${4:keyword1, keyword2}]",
+         "abstract: |",
+         "  ${5:Abstract text here...}",
+         "bibliography: ${6:references.bib}",
+         "csl: ${7:apa.csl}",
+         "link-citations: ${8:true}",
+         "output: ${9:pdf_document}",
+         "---",
+         ""
+      ],
+      "description": "Pandoc YAML metadata block"
+   },
+
+   "Citation": {
+      "prefix": "cite",
+      "body": ["[@${1:key}]"],
+      "description": "Pandoc citation"
+   },
+
+   "Bibliography Reference": {
+      "prefix": "bibref",
+      "body": ["[see @${1:key}, pp. ${2:123-125}]"],
+      "description": "Pandoc citation with page number"
+   },
+
+   "Figure Block": {
+      "prefix": "fig",
+      "body": [
+         "![${1:Caption}](images/${2:image.png}){#fig:${3:label} width=${4:50%}}",
+         ""
+      ],
+      "description": "Markdown image with caption and label"
+   },
+
+   "LaTeX Math Block": {
+      "prefix": "eq",
+      "body": [
+         "$$",
+         "${1:e = mc^2}",
+         "$$"
+      ],
+      "description": "LaTeX-style math block"
+   },
+
+   "Inline Math": {
+      "prefix": "imath",
+      "body": ["$${1:E=mc^2}$$"],
+      "description": "Inline LaTeX math"
+   },
+
+   "Footnote": {
+      "prefix": "foot",
+      "body": ["[^${1:label}]: ${2:Footnote text}"],
+      "description": "Pandoc footnote"
+   },
+
+   "Simple Table": {
+      "prefix": "ptable",
+      "body": [
+         "| ${1:Header 1} | ${2:Header 2} | ${3:Header 3} |",
+         "|--------------|--------------|--------------|",
+         "| ${4:Row 1 Col 1} | ${5:Row 1 Col 2} | ${6:Row 1 Col 3} |"
+      ],
+      "description": "Simple markdown table"
+   },
+
+   "Complex Table": {
+      "prefix": "ctable",
+      "body": [
+         "| ${1:Header 1} | ${2:Header 2} | ${3:Header 3} |",
+         "|:-------------|:------------:|-------------:|",
+         "| ${4:Left Align} | ${5:Center} | ${6:Right Align} |",
+         "| ${7:Row 2 Col 1} | ${8:Row 2 Col 2} | ${9:Row 2 Col 3} |"
+      ],
+      "description": "Markdown table with alignment"
+   },
+
+   "Cross-reference Figure": {
+      "prefix": "xref_fig",
+      "body": ["See Figure \\@ref(fig:${1:label})"],
+      "description": "Pandoc figure cross-reference"
+   },
+
+   "Cross-reference Table": {
+      "prefix": "xref_tab",
+      "body": ["See Table \\@ref(tab:${1:label})"],
+      "description": "Pandoc table cross-reference"
+   },
+
+   "Code Block": {
+      "prefix": "code",
+      "body": [
+         "```$1",
+         "$2",
+         "```"
+      ],
+      "description": "Code block with language"
+   },
+
+   "Pandoc Div": {
+      "prefix": "div",
+      "body": [
+         "::: {#${1:id} .${2:class} ${3:attributes}}",
+         "${4:Content here}",
+         ":::"
+      ],
+      "description": "Pandoc Div block with attributes"
+   },
+
+   "Pandoc Span": {
+      "prefix": "span",
+      "body": [
+         "[${1:text}]{#${2:id} .${3:class} ${4:attributes}}"
+      ],
+      "description": "Pandoc Span with attributes"
+   },
+
+   "Raw LaTeX Block": {
+      "prefix": "rawtex",
+      "body": [
+         "```{=latex}",
+         "${1:LaTeX code}",
+         "```"
+      ],
+      "description": "Raw LaTeX block"
+   },
+
+   "Bold": {
+      "prefix": "b",
+      "body": ["**${1:text}**"],
+      "description": "Bold text"
+   },
+
+   "Italic": {
+      "prefix": "i",
+      "body": ["*${1:text}*"],
+      "description": "Italic text"
+   },
+
+   "Strike-through": {
+      "prefix": "strike",
+      "body": ["~~${1:text}~~"],
+      "description": "Strike-through text"
+   },
+
+   "Header 1": {
+      "prefix": "h1",
+      "body": ["# ${1:Heading 1}"],
+      "description": "Heading level 1"
+   },
+
+   "Header 2": {
+      "prefix": "h2",
+      "body": ["## ${1:Heading 2}"],
+      "description": "Heading level 2"
+   },
+
+   "Header 3": {
+      "prefix": "h3",
+      "body": ["### ${1:Heading 3}"],
+      "description": "Heading level 3"
+   },
+
+   "Header 4": {
+      "prefix": "h4",
+      "body": ["#### ${1:Heading 4}"],
+      "description": "Heading level 4"
+   },
+
+   "Header 5": {
+      "prefix": "h5",
+      "body": ["##### ${1:Heading 5}"],
+      "description": "Heading level 5"
+   },
+
+   "Header 6": {
+      "prefix": "h6",
+      "body": ["###### ${1:Heading 6}"],
+      "description": "Heading level 6"
+   },
+
+   "Definition List": {
+      "prefix": "def",
+      "body": [
+         "${1:Term}",
+         ":   ${2:Definition}"
+      ],
+      "description": "Definition list"
+   },
+
+   "Blockquote": {
+      "prefix": "quote",
+      "body": [
+         "> ${1:Quote text here}"
+      ],
+      "description": "Blockquote"
+   }
+}

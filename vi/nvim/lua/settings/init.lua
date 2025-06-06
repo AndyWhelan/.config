@@ -41,3 +41,4 @@ command! -range=% Pb :<line1>,<line2>w !curl -F c=@- pb
 
 require("settings.fold_markers").setup()
 require("settings.system").setup()
+require("settings.keymaps").setup()
