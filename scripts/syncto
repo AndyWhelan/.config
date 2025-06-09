@@ -1,0 +1,38 @@
+#!/bin/sh
+# $1 - short container name, e.g. `mycontainer` in `user-mycontainer`
+
+_user="andrewwhelan"
+
+cd "$(git rev-parse --show-toplevel 2>/dev/null || echo .)"
+containerName="$_user-$1"
+pkg_list=$(ssh "$containerName" "a git packages" | awk '/^Included packages:/ {flag=1; next} flag && NF {print}')
+fromPath=$(pwd)
+
+if [ -z "$pkg_list" ]; then
+   echo "No packages found or failed to fetch from remote." >&2
+   exit 1
+fi
+
+# Loop interactively through each package
+# Use a temp file to safely feed lines without using a pipe
+printf '%s\n' "$pkg_list" > /tmp/pkglist.$$
+
+while IFS= read -r pkg; do 
+   pkg="$pkg"
+   pkg=$(printf '%s' "$pkg" | sed 's/^[[:space:]]*//')
+   fromPath="$fromPath/$pkg/"
+   toPath="${containerName}:/src/${pkg}/"
+   printf "Sync from %s to %s? [y/N]: " "$fromPath" "$toPath"
+   read ans < /dev/tty
+   case "$ans" in
+      [Yy]*)
+         echo "Syncing $pkg..."
+         rsync -avz "$fromPath" "$toPath"
+         ;;
+      *)
+         echo "Skipping $pkg"
+         ;;
+   esac
+done < /tmp/pkglist.$$
+
+rm -f /tmp/pkglist.$$
